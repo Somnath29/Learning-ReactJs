@@ -21,7 +21,7 @@ A hands-on repository for learning **React.js** through concepts, practicals, an
 
 ## 📁 Repository Structure
 
-```text
+
 Learning-ReactJs/
 └── Javascript-revision/
 
