@@ -367,10 +367,10 @@
 
 
 
-let student ={
-    name:"Rahul",
-    age:20
-}
+// let student ={
+//     name:"Rahul",
+//     age:20
+// }
 // student.age = 21;
 // console.log(student);
 
@@ -379,9 +379,132 @@ let student ={
 
 // note :- the spread operator creates a new object. It does not modify the original student object.
 
-let update={
-    ...student,
-    age : 21
-}
+// let update={
+//     ...student,
+//     age : 21
+// }
 
-console.log(update.age);
+// console.log(update.age);
+
+
+
+
+
+
+// 1. Pure Function
+
+// A pure function:
+
+// Gives the same output for the same input
+// Does not modify anything outside the function
+
+// Example:
+
+// function add(a, b) {
+//     return a + b;
+// }
+
+// console.log(add(10, 20)); // 30
+// console.log(add(10, 20)); // 30
+
+
+
+
+
+
+
+
+
+
+// 2. Impure Function
+
+// An impure function can:
+
+// Give different outputs for the same input
+// Modify something outside itself (side effect)
+// Example 1: Modifying an external variable
+
+
+// sir example 
+
+// let total = 0;
+// function addtotal(value){
+//     total += value;
+// }
+
+
+
+// let count = 0;
+
+// function increase() {
+//     count++;
+//     return count;
+// }
+
+// console.log(increase()); // 1
+// console.log(increase()); // 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// shallow and deep copy
+
+// Shallow copy: nested objects are shared ❌
+// Deep copy: nested objects are also copied ✅
+
+// Shallow copy: Copies only the first level, so nested objects are still shared.
+// Deep copy: Copies all levels, so nested objects are completely independent.
+
+
+
+
+// shallow copy :- 
+
+// const original = {
+//     name:"Alice",
+//     details:{age:25}
+// }
+// const shallowcopy = {...original};
+// shallowcopy.name = "Bob";
+// shallowcopy.details.age = 30;
+// console.log(original.name);
+// console.log(original.details.age);
+
+
+// deep copy 
+
+
+
+// const original1 = {
+//     name:"Alice",
+//     details:{age:25}
+// };
+// const deepcopy = structuredClone(original1);
+// deepcopy.name = "Bob";
+// deepcopy.details.age = 30;
+// console.log(original1.name);
+// console.log(deepcopy.name);
+// console.log(original1.details.age);
+// console.log(deepcopy.details.age);
+
+
+
+
+
+
+
+let a = {name:"Rahul"};
+// let b = {name:"Rahul"};
+
+let b = a;
+console.log(a==b);
