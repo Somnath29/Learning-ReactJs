@@ -4,28 +4,27 @@ A hands-on repository for learning **React.js** through concepts, practicals, an
 
 ## 📚 What I'll Learn
 
-- JavaScript ES6+ fundamentals
-- React fundamentals & JSX
-- Functional components & props
-- Component composition & reusable components
-- State management & event handling
-- React Hooks
-- Tailwind CSS & responsive UI
-- Forms & validation with Zod
-- API integration with Fetch/Axios
-- React Query & server state
-- Client-side routing
-- Context API, Redux Toolkit & Zustand
-- React debugging & performance optimization
-- Production builds & deployment
+* JavaScript ES6+ fundamentals
+* React fundamentals & JSX
+* Functional components & props
+* Component composition & reusable components
+* State management & event handling
+* React Hooks
+* Tailwind CSS & responsive UI
+* Forms & validation with Zod
+* API integration with Fetch/Axios
+* React Query & server state
+* Client-side routing
+* Context API, Redux Toolkit & Zustand
+* React debugging & performance optimization
+* Production builds & deployment
 
 ## 📁 Repository Structure
 
-
+```text
 Learning-ReactJs/
 └── Javascript-revision/
-
-
+```
 
 ## 🚀 Goal
 
