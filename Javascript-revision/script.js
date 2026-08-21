@@ -354,10 +354,34 @@
 // console.log(...numbers);
 
 
-function sum(...number){
-    console.log(number);
-}
+// function sum(...number){
+//     console.log(number);
+// }
 
-console.log(sum(10,20,30));
+// console.log(sum(10,20,30));
 
 // undefined - cz function does'nt return anything at end 
+
+
+
+
+
+
+let student ={
+    name:"Rahul",
+    age:20
+}
+// student.age = 21;
+// console.log(student);
+
+
+
+
+// note :- the spread operator creates a new object. It does not modify the original student object.
+
+let update={
+    ...student,
+    age : 21
+}
+
+console.log(update.age);
