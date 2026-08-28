@@ -126,13 +126,38 @@
 
 // my first code :-
 
+// function App() {
+//   return (
+//     <div>
+//       <h1>My Introduction :)</h1>
+//       <h2>Somnath Bhaskar</h2>
+//       <h2>I am a Student</h2>
+//       <p>My first React application</p>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+
+
+
+
+
+
 function App() {
+  const name = "Somnath";
+  const course = "BTech";
+  const sem = 5;
+
   return (
     <div>
-      <h1>Hello React!</h1>
-      <p>My first React application</p>
+      <h1>My Introduction :)</h1>
+      <h2>{name}</h2>
+      <h2>Course: {course}</h2>
+      <p>Sem: {sem}</p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
