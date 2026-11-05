@@ -1539,36 +1539,557 @@
 // Uncontrolled Component
 
 
-import { useRef } from "react";
+// import { useRef } from "react";
+
+// function App() {
+//     const nameRef = useRef(null);
+
+//     function handleSubmit(event) {
+//         event.preventDefault();
+//         alert("Your name is: " + nameRef.current.value);
+//     }
+
+//     return (
+//         <div>
+//             <h1>Uncontrolled Component</h1>
+
+//             <label htmlFor="studentName">
+//                 Enter your Name:
+//             </label>
+
+//             <input
+//                 id="studentName"
+//                 type="text"
+//                 ref={nameRef}
+//                 placeholder="Enter your name"
+//             />
+
+//             <button onClick={handleSubmit}>
+//                 Submit
+//             </button>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+// 1st way separte state variable 
+
+
+// import { useState } from "react";
+
+// function App() {
+//     const [name, setName] = useState("");
+//     const [email, setEmail] = useState("");
+//     const [course, setCourse] = useState("");
+
+//     function handleSubmit(event) {
+//         event.preventDefault();
+
+//         alert(
+//             "Name: " + name +
+//             "\nEmail: " + email +
+//             "\nCourse: " + course
+//         );
+//     }
+
+//     return (
+//         <div>
+//             <h1>Student Registration</h1>
+
+//             <form onSubmit={handleSubmit}>
+
+//                 <label>Student Name:</label>
+//                 <input
+//                     type="text"
+//                     value={name}
+//                     onChange={(e) => setName(e.target.value)}
+//                     placeholder="Enter Name"
+//                     required
+//                 />
+
+//                 <br /><br />
+
+//                 <label>Student Email:</label>
+//                 <input
+//                     type="email"
+//                     value={email}
+//                     onChange={(e) => setEmail(e.target.value)}
+//                     placeholder="Enter Email"
+//                     required
+//                 />
+
+//                 <br /><br />
+
+//                 <label>Course:</label>
+//                 <select
+//                     value={course}
+//                     onChange={(e) => setCourse(e.target.value)}
+//                     required
+//                 >
+//                     <option value="">Select Course</option>
+//                     <option value="CSE">BTech CSE</option>
+//                     <option value="IT">BTech IT</option>
+//                     <option value="MCA">MCA</option>
+//                 </select>
+
+//                 <br /><br />
+
+//                 <button type="submit">Submit</button>
+
+//             </form>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+// 2nd way :- Single state object
+
+
+// import { useState } from "react";
+
+// function App() {
+//     const [formData, setFormData] = useState({
+//         name: "",
+//         email: "",
+//         course: "",
+//     });
+
+//     function handleChange(event) {
+//         const { name, value } = event.target;
+
+//         setFormData((prev) => ({
+//             ...prev,
+//             [name]: value
+//         }));
+//     }
+
+//     function handleSubmit(event) {
+//         event.preventDefault();
+
+//         alert(JSON.stringify(formData, null, 2));
+//     }
+
+//     return (
+//         <div>
+//             <h1>Student Registration</h1>
+
+//             <form onSubmit={handleSubmit}>
+
+//                 <label>Student Name:</label>
+//                 <input
+//                     type="text"
+//                     name="name"
+//                     value={formData.name}
+//                     onChange={handleChange}
+//                     placeholder="Enter Name"
+//                     required
+//                 />
+
+//                 <br /><br />
+
+//                 <label>Student Email:</label>
+//                 <input
+//                     type="email"
+//                     name="email"
+//                     value={formData.email}
+//                     onChange={handleChange}
+//                     placeholder="Enter Email"
+//                     required
+//                 />
+
+//                 <br /><br />
+
+//                 <label>Course:</label>
+//                 <select
+//                     name="course"
+//                     value={formData.course}
+//                     onChange={handleChange}
+//                     required
+//                 >
+//                     <option value="">Select Course</option>
+//                     <option value="CSE">BTech CSE</option>
+//                     <option value="IT">BTech IT</option>
+//                     <option value="MCA">MCA</option>
+//                 </select>
+
+//                 <br /><br />
+
+//                 <button type="submit">Submit</button>
+
+//             </form>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+// notes:-
+// Separate state: One state variable for each input.
+// Single state: One object containing all input values.
+// Common handleChange: Dynamically updates the appropriate property using [name]: value.
+
+
+
+
+
+
+// 3rd way : - form state with validation and errors
+
+
+
+// import { useState } from "react";
+
+// function App() {
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     email: ""
+//   });
+
+//   const [errors, setErrors] = useState({});
+//   const [submitted, setSubmitted] = useState(false);
+
+//   function handleChange(event) {
+//     const { name, value } = event.target;
+
+//     setFormData((prev) => ({
+//       ...prev,
+//       [name]: value
+//     }));
+
+//     // Clear the success message when editing
+//     setSubmitted(false);
+//   }
+
+//   function validateForm() {
+//     const newErrors = {};
+
+//     if (!formData.name.trim()) {
+//       newErrors.name = "Name is required";
+//     }
+
+//     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+//       newErrors.email = "Enter a valid email";
+//     }
+
+//     return newErrors;
+//   }
+
+//   function handleSubmit(event) {
+//     event.preventDefault();
+
+//     const newErrors = validateForm();
+//     setErrors(newErrors);
+
+//     if (Object.keys(newErrors).length === 0) {
+//       setSubmitted(true);
+//       console.log("Form submitted:", formData);
+//     } else {
+//       setSubmitted(false);
+//     }
+//   }
+
+//   return (
+//     <div>
+//       <h1>Registration with Validation</h1>
+
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label>Student Name:</label>
+//           <input
+//             name="name"
+//             value={formData.name}
+//             onChange={handleChange}
+//             placeholder="Enter name"
+//           />
+
+//           {errors.name && <p>{errors.name}</p>}
+//         </div>
+
+//         <br />
+
+//         <div>
+//           <label>Email:</label>
+//           <input
+//             name="email"
+//             type="email"
+//             value={formData.email}
+//             onChange={handleChange}
+//             placeholder="Enter email"
+//           />
+
+//           {errors.email && <p>{errors.email}</p>}
+//         </div>
+
+//         <br />
+
+//         <button type="submit">Submit</button>
+//       </form>
+
+//       {submitted && (
+//         <p>Form submitted successfully!</p>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+// 4th way :- building a Student Registration Form using React's useReducer() hook.
+
+
+// import { useReducer } from "react";
+
+// const initialState = {
+//   name: "",
+//   email: "",
+//   errors: {},
+//   submitted: false
+// };
+
+// function formReducer(state, action) {
+//   switch (action.type) {
+//     case "CHANGE":
+//       return {
+//         ...state,
+//         [action.name]: action.value,
+//         submitted: false
+//       };
+
+//     case "SET_ERRORS":
+//       return {
+//         ...state,
+//         errors: action.errors,
+//         submitted: false
+//       };
+
+//     case "SUBMIT_SUCCESS":
+//       return {
+//         ...state,
+//         errors: {},
+//         submitted: true
+//       };
+
+//     case "RESET":
+//       return initialState;
+
+//     default:
+//       return state;
+//   }
+// }
+
+// function App() {
+//   const [state, dispatch] = useReducer(
+//     formReducer,
+//     initialState
+//   );
+
+//   function handleChange(event) {
+//     const { name, value } = event.target;
+
+//     dispatch({
+//       type: "CHANGE",
+//       name,
+//       value
+//     });
+//   }
+
+//   function handleSubmit(event) {
+//     event.preventDefault();
+
+//     const newErrors = {};
+
+//     if (!state.name.trim()) {
+//       newErrors.name = "Name is required";
+//     }
+
+//     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email)) {
+//       newErrors.email = "Enter a valid email";
+//     }
+
+//     if (Object.keys(newErrors).length > 0) {
+//       dispatch({
+//         type: "SET_ERRORS",
+//         errors: newErrors
+//       });
+//       return;
+//     }
+
+//     dispatch({ type: "SUBMIT_SUCCESS" });
+
+//     console.log("Submitted:", {
+//       name: state.name,
+//       email: state.email
+//     });
+//   }
+
+//   return (
+//     <div>
+//       <h1>Registration with useReducer</h1>
+
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label>Student Name:</label>
+//           <input
+//             name="name"
+//             value={state.name}
+//             onChange={handleChange}
+//             placeholder="Enter name"
+//           />
+
+//           {state.errors.name && (
+//             <p>{state.errors.name}</p>
+//           )}
+//         </div>
+
+//         <br />
+
+//         <div>
+//           <label>Email:</label>
+//           <input
+//             name="email"
+//             type="email"
+//             value={state.email}
+//             onChange={handleChange}
+//             placeholder="Enter email"
+//           />
+
+//           {state.errors.email && (
+//             <p>{state.errors.email}</p>
+//           )}
+//         </div>
+
+//         <br />
+
+//         <button type="submit">Submit</button>{" "}
+//         <button
+//           type="button"
+//           onClick={() => dispatch({ type: "RESET" })}
+//         >
+//           Reset
+//         </button>
+//       </form>
+
+//       {state.submitted && (
+//         <p>Form submitted successfully!</p>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+import { useState } from "react";
+import InputField from "./components/InputField";
 
 function App() {
-    const nameRef = useRef(null);
+
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: ""
+    });
+
+    function handleChange(event) {
+        const { name, value } = event.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    }
 
     function handleSubmit(event) {
         event.preventDefault();
-        alert("Your name is: " + nameRef.current.value);
+
+        alert(
+            "Name: " + formData.name +
+            "\nEmail: " + formData.email +
+            "\nPassword: " + formData.password
+        );
     }
 
     return (
         <div>
-            <h1>Uncontrolled Component</h1>
+            <h1>Student Registration</h1>
 
-            <label htmlFor="studentName">
-                Enter your Name:
-            </label>
+            <form onSubmit={handleSubmit}>
 
-            <input
-                id="studentName"
-                type="text"
-                ref={nameRef}
-                placeholder="Enter your name"
-            />
+                <InputField
+                    label="Student Name:"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter name"
+                />
 
-            <button onClick={handleSubmit}>
-                Submit
-            </button>
+                <InputField
+                    label="Email:"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Enter email"
+                />
+
+                <InputField
+                    label="Password:"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter password"
+                />
+
+                <button type="submit">
+                    Submit
+                </button>
+
+            </form>
         </div>
     );
 }
 
 export default App;
+
