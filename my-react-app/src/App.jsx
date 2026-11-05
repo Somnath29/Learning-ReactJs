@@ -2020,75 +2020,177 @@
 
 
 
+// import { useState } from "react";
+// import InputField from "./components/InputField";
+
+// function App() {
+
+//     const [formData, setFormData] = useState({
+//         name: "",
+//         email: "",
+//         password: ""
+//     });
+
+//     function handleChange(event) {
+//         const { name, value } = event.target;
+
+//         setFormData((prev) => ({
+//             ...prev,
+//             [name]: value
+//         }));
+//     }
+
+//     function handleSubmit(event) {
+//         event.preventDefault();
+
+//         alert(
+//             "Name: " + formData.name +
+//             "\nEmail: " + formData.email +
+//             "\nPassword: " + formData.password
+//         );
+//     }
+
+//     return (
+//         <div>
+//             <h1>Student Registration</h1>
+
+//             <form onSubmit={handleSubmit}>
+
+//                 <InputField
+//                     label="Student Name:"
+//                     name="name"
+//                     value={formData.name}
+//                     onChange={handleChange}
+//                     placeholder="Enter name"
+//                 />
+
+//                 <InputField
+//                     label="Email:"
+//                     type="email"
+//                     name="email"
+//                     value={formData.email}
+//                     onChange={handleChange}
+//                     placeholder="Enter email"
+//                 />
+
+//                 <InputField
+//                     label="Password:"
+//                     type="password"
+//                     name="password"
+//                     value={formData.password}
+//                     onChange={handleChange}
+//                     placeholder="Enter password"
+//                 />
+
+//                 <button type="submit">
+//                     Submit
+//                 </button>
+
+//             </form>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
 import { useState } from "react";
-import InputField from "./components/InputField";
 
 function App() {
+  const [course, setCourse] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
 
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: ""
-    });
+  function handleSubmit(event) {
+    event.preventDefault();
+    setSubmitted(true);
+  }
 
-    function handleChange(event) {
-        const { name, value } = event.target;
+  return (
+    <div>
+      <h1>Course Registration</h1>
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    }
+      <form onSubmit={handleSubmit}>
 
-    function handleSubmit(event) {
-        event.preventDefault();
+        <label>Select Course:</label>
 
-        alert(
-            "Name: " + formData.name +
-            "\nEmail: " + formData.email +
-            "\nPassword: " + formData.password
-        );
-    }
+        <select
+          value={course}
+          onChange={(e) => {
+            setCourse(e.target.value);
+            setSubmitted(false);
+          }}
+        >
+          <option value="">Select Course</option>
+          <option value="CSE">BTech CSE</option>
+          <option value="IT">BTech IT</option>
+          <option value="MCA">MCA</option>
+        </select>
 
-    return (
-        <div>
-            <h1>Student Registration</h1>
+        {/* Conditional rendering using && */}
 
-            <form onSubmit={handleSubmit}>
+        {course === "CSE" && (
+          <p>You selected Computer Science Engineering.</p>
+        )}
 
-                <InputField
-                    label="Student Name:"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Enter name"
-                />
+        {course === "IT" && (
+          <p>You selected Information Technology.</p>
+        )}
 
-                <InputField
-                    label="Email:"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter email"
-                />
+        {course === "MCA" && (
+          <p>You selected Master of Computer Applications.</p>
+        )}
 
-                <InputField
-                    label="Password:"
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Enter password"
-                />
+        <br />
 
-                <button type="submit">
-                    Submit
-                </button>
+        <label>
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+          />
+          Show password field
+        </label>
 
-            </form>
-        </div>
-    );
+        {/* Conditional rendering using ternary */}
+
+        {showPassword ? (
+          <input
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+          />
+        ) : (
+          <p>Password field is hidden.</p>
+        )}
+
+        <br />
+
+        <button type="submit">
+          Submit
+        </button>
+      </form>
+
+      {/* Conditional rendering using ternary */}
+
+      {submitted ? (
+        <h3>Form submitted successfully!</h3>
+      ) : (
+        <p>Please complete your registration.</p>
+      )}
+    </div>
+  );
 }
 
 export default App;
