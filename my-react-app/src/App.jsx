@@ -1135,22 +1135,440 @@
 
 
 
-import { createContext, useState } from "react";
+// import { createContext, useState } from "react";
 
-import ChildA from "./components/ChildA";
-const UserContext = createContext();
+// import ChildA from "./components/ChildA";
+// const UserContext = createContext();
 
-function App(){
-    const[user,setUser] = useState({name: "Vishal"});
-    return(
-        <>
-        <UserContext.Provider value = {user}
-        >
-            <ChildA/>
-        </UserContext.Provider>
-        </>
-    )
+// function App(){
+//     const[user,setUser] = useState({name: "Vishal"});
+//     return(
+//         <>
+//         <UserContext.Provider value = {user}
+//         >
+//             <ChildA/>
+//         </UserContext.Provider>
+//         </>
+//     )
+// }
+
+// export default App;
+// export {UserContext};
+
+
+
+
+
+
+// USE MEMO
+
+
+// code without usememo
+
+
+// import {useState} from "react";
+// function App(){
+//     const[count , setCount] = useState(0);
+//     const[input , setInput] = useState(0);
+//     function expensiveTask(num) {
+//         console.log("Inside Expensive task");
+
+//         for (let i = 0; i <= 1000000000; i++) {
+//             // Simulating an expensive task
+//         }
+
+//         return Number(num) + 2;
+//     }
+
+
+//     let doubleValue = expensiveTask(input);
+//     return(
+//         <div>
+//             <button onClick = {()=> setCount(count+1)}>
+//                 Increase
+//             </button>
+//             <div>
+//                 Count:{count}
+//             </div>
+//             <input
+//             type = "number"
+//             placeholder="enter number"
+//             value = {input}
+//             onChange={(e)=>setInput(e.target.value)}
+//             ></input>
+//             <div>
+//                 Double :{doubleValue}
+//             </div>
+//         </div>
+//     )
+// }
+
+
+
+// export default App; 
+
+
+
+
+
+// 1\. `useState` – Manages two states: `count` for the button counter and `input` for the number entered by the user.
+
+// 2\. `expensiveTask(num)` – Runs a loop one billion times to simulate an expensive calculation and returns `num + 2`.
+
+// 3\. Increase Button – Increments `count` by 1 whenever the user clicks the button.
+
+// 4\. Input Field – Accepts a number from the user and updates the `input` state using `onChange`.
+
+// 5\. `doubleValue` – Stores and displays the result of `expensiveTask(input)`. The function executes again whenever the component re-renders, even if only `count` changes.
+
+
+
+
+
+
+// Code with use memo 
+
+
+
+// import { useState, useMemo } from "react";
+
+// function App() {
+//     const [count, setCount] = useState(0);
+//     const [input, setInput] = useState(0);
+
+//     function expensiveTask(num) {
+//         console.log("Inside Expensive task");
+
+//         for (let i = 0; i <= 1000000000; i++) {
+//             // Simulating an expensive task
+//         }
+
+//         return Number(num) + 2;
+//     }
+
+//     const doubleValue = useMemo(() => {
+//         return expensiveTask(input);
+//     }, [input]);
+
+//     return (
+//         <div>
+//             <button onClick={() => setCount(count + 1)}>
+//                 Increase
+//             </button>
+
+//             <div>Count: {count}</div>
+
+//             <input
+//                 type="number"
+//                 placeholder="Enter number"
+//                 value={input}
+//                 onChange={(e) => setInput(e.target.value)}
+//             />
+
+//             <div>Double: {doubleValue}</div>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+// 2 TASKS :-
+
+// Digital Clock
+
+// import { useState, useEffect } from "react";
+
+// function App() {
+//     const [time, setTime] = useState(new Date());
+
+//     useEffect(() => {
+//         const timer = setInterval(() => {
+//             setTime(new Date());
+//         }, 1000);
+
+//         return () => clearInterval(timer);
+//     }, []);
+
+//     return (
+//         <div>
+//             <h1>Digital Clock</h1>
+//             <h2>{time.toLocaleTimeString()}</h2>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+// 2. Display Window Height and Width
+
+// import { useState, useEffect } from "react";
+
+// function App() {
+//     const [size, setSize] = useState({
+//         width: window.innerWidth,
+//         height: window.innerHeight
+//     });
+
+//     useEffect(() => {
+//         function updateSize() {
+//             setSize({
+//                 width: window.innerWidth,
+//                 height: window.innerHeight
+//             });
+//         }
+
+//         window.addEventListener("resize", updateSize);
+
+//         return () => {
+//             window.removeEventListener("resize", updateSize);
+//         };
+//     }, []);
+
+//     return (
+//         <div>
+//             <h1>Window Dimensions</h1>
+//             <p>Width: {size.width}px</p>
+//             <p>Height: {size.height}px</p>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { useState } from "react";
+// import StudentCard from "./components/StudentCard";
+
+// function App() {
+//     const [count, setCount] = useState(0);
+
+//     const handleView = () => {
+//         console.log("Viewing Student Details");
+//     };
+
+//     return (
+//         <div>
+//             <h1>Student Dashboard</h1>
+
+//             <h2>Counter: {count}</h2>
+
+//             <button onClick={() => setCount(count + 1)}>
+//                 Increase Counter
+//             </button>
+
+//             <hr />
+
+//             <StudentCard
+//                 name="Som"
+//                 onView={handleView}
+//             />
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+// import { useState, useCallback } from "react";
+// import StudentCard from "./components/StudentCard";
+
+// function App() {
+//     const [count, setCount] = useState(0);
+
+//     // useCallback remembers the function
+//     const handleView = useCallback(() => {
+//         console.log("Viewing Student Details");
+//     }, []);
+
+
+//     return (
+//         <div>
+//             <h1>Student Dashboard</h1>
+
+//             <h2>Counter: {count}</h2>
+
+//             <button onClick={() => setCount(count + 1)}>
+//                 Increase Counter
+//             </button>
+
+//             <hr />
+
+//             <StudentCard
+//                 name="Som"
+//                 onView={handleView}
+//             />
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+// 1\. useState(): Manages the counter state and updates it when the Increase Counter button is clicked.
+
+// 2\. useCallback(): Prevents the `handleView` function from being recreated on every re-render when dependencies remain unchanged.
+
+// 3\. React.memo(): Prevents unnecessary re-rendering of the `StudentCard` component if its props haven't changed.
+
+// 4\. Props: Passes the student's name (`Som`) and the `handleView` function from the parent (`App`) to the child (`StudentCard`).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import CounterOne from "./CounterOne";
+// import CounterTwo from "./CounterTwo";
+// function App(){
+//     return(
+//         <div>
+//             <h1>Custom Hooks</h1>
+//             <CounterOne/>
+//             <hr/>
+//             <CounterTwo/>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Controlled Component
+
+// import { useState } from "react";
+
+// function App() {
+//     const [name, setName] = useState("");
+
+//     function handleChange(event) {
+//         setName(event.target.value);
+//     }
+
+//     return (
+//         <div>
+//             <h1>Controlled Component</h1>
+
+//             <label htmlFor="studentName">
+//                 Enter your Name:
+//             </label>
+
+//             <input
+//                 id="studentName"
+//                 type="text"
+//                 value={name}
+//                 onChange={handleChange}
+//                 placeholder="Enter your name"
+//             />
+
+//             <h2>Your Name: {name}</h2>
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Uncontrolled Component
+
+
+import { useRef } from "react";
+
+function App() {
+    const nameRef = useRef(null);
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        alert("Your name is: " + nameRef.current.value);
+    }
+
+    return (
+        <div>
+            <h1>Uncontrolled Component</h1>
+
+            <label htmlFor="studentName">
+                Enter your Name:
+            </label>
+
+            <input
+                id="studentName"
+                type="text"
+                ref={nameRef}
+                placeholder="Enter your name"
+            />
+
+            <button onClick={handleSubmit}>
+                Submit
+            </button>
+        </div>
+    );
 }
 
 export default App;
-export {UserContext};

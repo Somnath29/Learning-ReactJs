@@ -30,34 +30,68 @@
 
 
 
-import Card from "./Card";
-import StudentHeader from "./StudentHeader";
-import Button from "./Button";
+// import Card from "./Card";
+// import StudentHeader from "./StudentHeader";
+// import Button from "./Button";
 
-function StudentCard({ name, course, rollNo, isActive }) {
-  let status;
+// function StudentCard({ name, course, rollNo, isActive }) {
+//   let status;
 
-  if (isActive === true) {
-    status = <p>Active student</p>;
-  } else {
-    status = <p>Inactive Student</p>;
-  }
+//   if (isActive === true) {
+//     status = <p>Active student</p>;
+//   } else {
+//     status = <p>Inactive Student</p>;
+//   }
 
-  return (
-    <Card>
-      <StudentHeader name={name} />
+//   return (
+//     <Card>
+//       <StudentHeader name={name} />
 
-      <p>{course}</p>
+//       <p>{course}</p>
 
-      <p>Roll No. {rollNo}</p>
+//       <p>Roll No. {rollNo}</p>
 
-      {status}
+//       {status}
 
-      <Button>View Profile</Button>
-    </Card>
-  );
+//       <Button>View Profile</Button>
+//     </Card>
+//   );
 
   
+// }
+
+// export default StudentCard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from "react";
+
+function StudentCard({ name, onView }) {
+    console.log("StudentCard rendered");
+
+    return (
+        <div>
+            <h2>{name}</h2>
+
+            <button onClick={onView}>
+                View Student
+            </button>
+        </div>
+    );
 }
 
-export default StudentCard;
+export default React.memo(StudentCard);
