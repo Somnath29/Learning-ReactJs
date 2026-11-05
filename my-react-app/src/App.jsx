@@ -1076,52 +1076,81 @@
 // variation 4: clean up function 
 
 
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
-function App() {
-    const [count, setCount] = useState(0);
-    const [total, setTotal] = useState(0);
+// function App() {
+//     const [count, setCount] = useState(0);
+//     const [total, setTotal] = useState(0);
 
-    // Variation 4: Cleanup function
-    useEffect(() => {
-        alert("Count is updated"); //first - Side effect
+//     // Variation 4: Cleanup function
+//     useEffect(() => {
+//         alert("Count is updated"); //first - Side effect
 
-        return () => {
-            alert("Count is unmounted"); // second -  Cleanup function
-        };
-    }, [count, total]);  // third - Dependency list
+//         return () => {
+//             alert("Count is unmounted"); // second -  Cleanup function
+//         };
+//     }, [count, total]);  // third - Dependency list
 
-    function handleClick() {
-        setCount(count + 1);
-    }
+//     function handleClick() {
+//         setCount(count + 1);
+//     }
 
-    function handleTotal() {
-        setTotal(total + 1);
-    }
+//     function handleTotal() {
+//         setTotal(total + 1);
+//     }
 
-    return (
-        <div>
-            <button onClick={handleClick}>
-                Update Count
-            </button>
-            <br />
+//     return (
+//         <div>
+//             <button onClick={handleClick}>
+//                 Update Count
+//             </button>
+//             <br />
 
-            <h1>Count is: {count}</h1>
+//             <h1>Count is: {count}</h1>
 
-            <button onClick={handleTotal}>
-                Update Total
-            </button>
-            <br />
+//             <button onClick={handleTotal}>
+//                 Update Total
+//             </button>
+//             <br />
 
-            <h1>Total: {total}</h1>
+//             <h1>Total: {total}</h1>
 
-            Hello
-        </div>
-    );
+//             Hello
+//         </div>
+//     );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { createContext, useState } from "react";
+
+import ChildA from "./components/ChildA";
+const UserContext = createContext();
+
+function App(){
+    const[user,setUser] = useState({name: "Vishal"});
+    return(
+        <>
+        <UserContext.Provider value = {user}
+        >
+            <ChildA/>
+        </UserContext.Provider>
+        </>
+    )
 }
 
 export default App;
-
-
-
-
+export {UserContext};
