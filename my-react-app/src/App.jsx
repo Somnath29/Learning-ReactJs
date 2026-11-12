@@ -2103,95 +2103,111 @@
 
 
 
-import { useState } from "react";
+// import { useState } from "react";
+
+// function App() {
+//   const [course, setCourse] = useState("");
+//   const [submitted, setSubmitted] = useState(false);
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [password, setPassword] = useState("");
+
+//   function handleSubmit(event) {
+//     event.preventDefault();
+//     setSubmitted(true);
+//   }
+
+//   return (
+//     <div>
+//       <h1>Course Registration</h1>
+
+//       <form onSubmit={handleSubmit}>
+
+//         <label>Select Course:</label>
+
+//         <select
+//           value={course}
+//           onChange={(e) => {
+//             setCourse(e.target.value);
+//             setSubmitted(false);
+//           }}
+//         >
+//           <option value="">Select Course</option>
+//           <option value="CSE">BTech CSE</option>
+//           <option value="IT">BTech IT</option>
+//           <option value="MCA">MCA</option>
+//         </select>
+
+//         {/* Conditional rendering using && */}
+
+//         {course === "CSE" && (
+//           <p>You selected Computer Science Engineering.</p>
+//         )}
+
+//         {course === "IT" && (
+//           <p>You selected Information Technology.</p>
+//         )}
+
+//         {course === "MCA" && (
+//           <p>You selected Master of Computer Applications.</p>
+//         )}
+
+//         <br />
+
+//         <label>
+//           <input
+//             type="checkbox"
+//             checked={showPassword}
+//             onChange={(e) => setShowPassword(e.target.checked)}
+//           />
+//           Show password field
+//         </label>
+
+//         {/* Conditional rendering using ternary */}
+
+//         {showPassword ? (
+//           <input
+//             type="text"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//             placeholder="Enter password"
+//           />
+//         ) : (
+//           <p>Password field is hidden.</p>
+//         )}
+
+//         <br />
+
+//         <button type="submit">
+//           Submit
+//         </button>
+//       </form>
+
+//       {/* Conditional rendering using ternary */}
+
+//       {submitted ? (
+//         <h3>Form submitted successfully!</h3>
+//       ) : (
+//         <p>Please complete your registration.</p>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+import ContactForm from "./components/ContactForm"
 
 function App() {
-  const [course, setCourse] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
-
   return (
     <div>
-      <h1>Course Registration</h1>
-
-      <form onSubmit={handleSubmit}>
-
-        <label>Select Course:</label>
-
-        <select
-          value={course}
-          onChange={(e) => {
-            setCourse(e.target.value);
-            setSubmitted(false);
-          }}
-        >
-          <option value="">Select Course</option>
-          <option value="CSE">BTech CSE</option>
-          <option value="IT">BTech IT</option>
-          <option value="MCA">MCA</option>
-        </select>
-
-        {/* Conditional rendering using && */}
-
-        {course === "CSE" && (
-          <p>You selected Computer Science Engineering.</p>
-        )}
-
-        {course === "IT" && (
-          <p>You selected Information Technology.</p>
-        )}
-
-        {course === "MCA" && (
-          <p>You selected Master of Computer Applications.</p>
-        )}
-
-        <br />
-
-        <label>
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={(e) => setShowPassword(e.target.checked)}
-          />
-          Show password field
-        </label>
-
-        {/* Conditional rendering using ternary */}
-
-        {showPassword ? (
-          <input
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter password"
-          />
-        ) : (
-          <p>Password field is hidden.</p>
-        )}
-
-        <br />
-
-        <button type="submit">
-          Submit
-        </button>
-      </form>
-
-      {/* Conditional rendering using ternary */}
-
-      {submitted ? (
-        <h3>Form submitted successfully!</h3>
-      ) : (
-        <p>Please complete your registration.</p>
-      )}
+      <ContactForm />
     </div>
-  );
+  )
 }
 
-export default App;
-
+export default App

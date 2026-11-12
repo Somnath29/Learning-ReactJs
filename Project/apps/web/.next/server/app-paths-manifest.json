@@ -1,0 +1,9 @@
+{
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/my-bookings/page": "app/my-bookings/page.js",
+  "/calendar/page": "app/calendar/page.js",
+  "/notifications/page": "app/notifications/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/resources/page": "app/resources/page.js"
+}
