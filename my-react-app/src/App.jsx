@@ -2653,60 +2653,110 @@
 
 
 
+// import { useState, useEffect } from "react";
+
+// function App() {
+
+//   const [students, setStudents] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+
+//     fetch("https://jsonplaceholder.typicode.com/users")
+//       .then(response => {
+//         if (!response.ok) {
+//           throw new Error("Failed to fetch data");
+//         }
+//         return response.json();
+//       })
+//       .then(data => {
+//         setStudents(data);
+//         setLoading(false);
+//       })
+//       .catch(err => {
+//         setError(err.message);
+//         setLoading(false);
+//       });
+
+//   }, []);
+
+
+//   if (loading) {
+//     return <h2>Loading students...</h2>;
+//   }
+
+  
+//   if (error) {
+//     return <h2>Error: {error}</h2>;
+//   }
+
+  
+//   if (students.length === 0) {
+//     return <h2>No students found!</h2>;
+//   }
+
+//   return (
+//     <div>
+//       <h1>Student Dashboard</h1>
+
+//       {students.map(student => (
+//         <div key={student.id}>
+//           <h3>{student.name}</h3>
+//           <p>{student.email}</p>
+//         </div>
+//       ))}
+
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState, useEffect } from "react";
 
 function App() {
-
-  const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        return response.json();
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
       })
-      .then(data => {
-        setStudents(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
+      .catch((error) => {
+        console.log(error);
       });
-
   }, []);
-
-
-  if (loading) {
-    return <h2>Loading students...</h2>;
-  }
-
-  
-  if (error) {
-    return <h2>Error: {error}</h2>;
-  }
-
-  
-  if (students.length === 0) {
-    return <h2>No students found!</h2>;
-  }
 
   return (
     <div>
-      <h1>Student Dashboard</h1>
+      <h1>Product List</h1>
 
-      {students.map(student => (
-        <div key={student.id}>
-          <h3>{student.name}</h3>
-          <p>{student.email}</p>
+      {products.map((product) => (
+        <div key={product.id}>
+          <h3>{product.title}</h3>
+          <p>Price: ${product.price}</p>
+          <img
+            src={product.image}
+            alt={product.title}
+            width="100"
+          />
         </div>
       ))}
-
     </div>
   );
 }
