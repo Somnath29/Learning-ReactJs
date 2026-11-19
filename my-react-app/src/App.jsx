@@ -2726,35 +2726,114 @@
 
 
 
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
+
+// function App() {
+//   const [products, setProducts] = useState([]);
+
+//   useEffect(() => {
+//     fetch("https://fakestoreapi.com/products")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setProducts(data);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   }, []);
+
+//   return (
+//     <div>
+//       <h1>Product List</h1>
+
+//       {products.map((product) => (
+//         <div key={product.id}>
+//           <h3>{product.title}</h3>
+//           <p>Price: ${product.price}</p>
+//           <img
+//             src={product.image}
+//             alt={product.title}
+//             width="100"
+//           />
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+//  make changes using usequery 
+
+
+
+
+
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
-  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // Function to fetch students
+  const fetchStudents = async () => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/users"
+    );
 
+    if (!response.ok) {
+      throw new Error("Failed to fetch students");
+    }
+
+    return response.json();
+  };
+
+  // TanStack Query
+  const {
+    data,
+    isPending,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ["students"],
+    queryFn: fetchStudents
+  });
+
+  // Loading state
+  if (isPending) {
+    return <h2>Loading Students...</h2>;
+  }
+
+  // Error state
+  if (isError) {
+    return <h2>Error: {error.message}</h2>;
+  }
+
+  // Empty data state
+  if (data.length === 0) {
+    return <h2>No students found</h2>;
+  }
+
+  // Display students
   return (
     <div>
-      <h1>Product List</h1>
+      <h1>Student List</h1>
 
-      {products.map((product) => (
-        <div key={product.id}>
-          <h3>{product.title}</h3>
-          <p>Price: ${product.price}</p>
-          <img
-            src={product.image}
-            alt={product.title}
-            width="100"
-          />
+      {data.map((student) => (
+        <div key={student.id}>
+          <h3>{student.name}</h3>
+          <p>Email: {student.email}</p>
+          <p>Username: {student.username}</p>
+          <p>City: {student.address.city}</p>
+          <hr />
         </div>
       ))}
     </div>
