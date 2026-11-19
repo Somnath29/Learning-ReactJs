@@ -2579,58 +2579,136 @@
 
 
 
-import { useState } from "react";
+// import { useState } from "react";
 
-export default function App() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+// export default function App() {
+//   const [name, setName] = useState("");
+//   const [email, setEmail] = useState("");
 
-  const sendData = async () => {
-    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/posts",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-        }),
-      }
-    );
+//   const sendData = async () => {
+//     const response = await fetch(
+//       "https://jsonplaceholder.typicode.com/posts",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           name: name,
+//           email: email,
+//         }),
+//       }
+//     );
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    console.log(data);
-    alert("Data sent successfully!");
-  };
+//     console.log(data);
+//     alert("Data sent successfully!");
+//   };
+
+//   return (
+//     <div>
+//       <h2>Student Registration</h2>
+
+//       <input
+//         type="text"
+//         placeholder="Enter Name"
+//         value={name}
+//         onChange={(e) => setName(e.target.value)}
+//       />
+
+//       <br />
+//       <br />
+
+//       <input
+//         type="email"
+//         placeholder="Enter Email"
+//         value={email}
+//         onChange={(e) => setEmail(e.target.value)}
+//       />
+
+//       <br />
+//       <br />
+
+//       <button onClick={sendData}>Submit</button>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { useState, useEffect } from "react";
+
+function App() {
+
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      })
+      .then(data => {
+        setStudents(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+
+  }, []);
+
+
+  if (loading) {
+    return <h2>Loading students...</h2>;
+  }
+
+  
+  if (error) {
+    return <h2>Error: {error}</h2>;
+  }
+
+  
+  if (students.length === 0) {
+    return <h2>No students found!</h2>;
+  }
 
   return (
     <div>
-      <h2>Student Registration</h2>
+      <h1>Student Dashboard</h1>
 
-      <input
-        type="text"
-        placeholder="Enter Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      {students.map(student => (
+        <div key={student.id}>
+          <h3>{student.name}</h3>
+          <p>{student.email}</p>
+        </div>
+      ))}
 
-      <br />
-      <br />
-
-      <input
-        type="email"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <br />
-      <br />
-
-      <button onClick={sendData}>Submit</button>
     </div>
   );
 }
+
+export default App;
