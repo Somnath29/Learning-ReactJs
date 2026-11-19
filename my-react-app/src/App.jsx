@@ -2362,199 +2362,275 @@
 
 
 
+// import { useState } from "react";
+// import { useForm } from "react-hook-form";
+// import { z } from "zod";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import "./App.css";
+
+// // 1. Zod Schema
+// const registrationSchema = z
+//   .object({
+//     name: z.string().trim().min(2, "Name must contain at least 2 characters"),
+
+//     email: z.string().trim().email("Enter a valid email"),
+
+//     password: z.string().min(8, "Password must contain at least 8 characters"),
+
+//     confirmPassword: z.string().min(1, "Confirm password is required"),
+
+//     role: z.enum(["student", "teacher", "other"], {
+//       error: "Please select a role",
+//     }),
+
+//     otherRole: z.string().optional(),
+//   })
+
+//   // Confirm password validation
+//   .refine((data) => data.password === data.confirmPassword, {
+//     message: "Passwords do not match",
+//     path: ["confirmPassword"],
+//   })
+
+//   // Other role validation
+//   .refine(
+//     (data) =>
+//       data.role !== "other" || data.otherRole?.trim().length > 0,
+//     {
+//       message: "Please specify your role",
+//       path: ["otherRole"],
+//     }
+//   );
+
+// // 2. Reusable TextField Component
+// function TextField({
+//   label,
+//   name,
+//   type = "text",
+//   register,
+//   error,
+// }) {
+//   return (
+//     <div className="form-group">
+//       <label htmlFor={name}>{label}</label>
+
+//       <input
+//         id={name}
+//         type={type}
+//         {...register(name)}
+//         aria-invalid={Boolean(error)}
+//         aria-describedby={error ? `${name}-error` : undefined}
+//       />
+
+//       {error && (
+//         <p id={`${name}-error`} className="error" role="alert">
+//           {error}
+//         </p>
+//       )}
+//     </div>
+//   );
+// }
+
+// // 3. Main Component
+// function App() {
+//   const {
+//     register,
+//     handleSubmit,
+//     watch,
+//     formState: { errors },
+//   } = useForm({
+//     resolver: zodResolver(registrationSchema),
+
+//     defaultValues: {
+//       name: "",
+//       email: "",
+//       password: "",
+//       confirmPassword: "",
+//       role: "",
+//       otherRole: "",
+//     },
+//   });
+
+//   const selectedRole = watch("role");
+
+//   const [success, setSuccess] = useState(false);
+
+//   // 4. Submit Function
+//   function onSubmit(data) {
+//     console.log("Registration Data:", data);
+//     setSuccess(true);
+//   }
+
+//   function onError() {
+//     setSuccess(false);
+//   }
+
+//   return (
+//     <div className="accessible-form">
+
+//       <h1>Student Registration</h1>
+
+//       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+
+//         {/* Name */}
+//         <TextField
+//           label="Student Name"
+//           name="name"
+//           register={register}
+//           error={errors.name?.message}
+//         />
+
+//         {/* Email */}
+//         <TextField
+//           label="Email Address"
+//           name="email"
+//           type="email"
+//           register={register}
+//           error={errors.email?.message}
+//         />
+
+//         {/* Password */}
+//         <TextField
+//           label="Password"
+//           name="password"
+//           type="password"
+//           register={register}
+//           error={errors.password?.message}
+//         />
+
+//         {/* Confirm Password */}
+//         <TextField
+//           label="Confirm Password"
+//           name="confirmPassword"
+//           type="password"
+//           register={register}
+//           error={errors.confirmPassword?.message}
+//         />
+
+//         {/* Role */}
+//         <div className="form-group">
+//           <label htmlFor="role">Select Role</label>
+
+//           <select
+//             id="role"
+//             {...register("role")}
+//             aria-invalid={Boolean(errors.role)}
+//             aria-describedby={errors.role ? "role-error" : undefined}
+//           >
+//             <option value="">Select Role</option>
+//             <option value="student">Student</option>
+//             <option value="teacher">Teacher</option>
+//             <option value="other">Other</option>
+//           </select>
+
+//           {errors.role && (
+//             <p id="role-error" className="error" role="alert">
+//               {errors.role.message}
+//             </p>
+//           )}
+//         </div>
+
+//         {/* Conditional Other Role */}
+//         {selectedRole === "other" && (
+//           <TextField
+//             label="Specify Your Role"
+//             name="otherRole"
+//             register={register}
+//             error={errors.otherRole?.message}
+//           />
+//         )}
+
+//         <button type="submit">
+//           Register
+//         </button>
+
+//         {success && (
+//           <p className="success" role="status">
+//             Registration Successful!
+//           </p>
+//         )}
+
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import "./App.css";
 
-// 1. Zod Schema
-const registrationSchema = z
-  .object({
-    name: z.string().trim().min(2, "Name must contain at least 2 characters"),
+export default function App() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
-    email: z.string().trim().email("Enter a valid email"),
+  const sendData = async () => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+        }),
+      }
+    );
 
-    password: z.string().min(8, "Password must contain at least 8 characters"),
+    const data = await response.json();
 
-    confirmPassword: z.string().min(1, "Confirm password is required"),
+    console.log(data);
+    alert("Data sent successfully!");
+  };
 
-    role: z.enum(["student", "teacher", "other"], {
-      error: "Please select a role",
-    }),
-
-    otherRole: z.string().optional(),
-  })
-
-  // Confirm password validation
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  })
-
-  // Other role validation
-  .refine(
-    (data) =>
-      data.role !== "other" || data.otherRole?.trim().length > 0,
-    {
-      message: "Please specify your role",
-      path: ["otherRole"],
-    }
-  );
-
-// 2. Reusable TextField Component
-function TextField({
-  label,
-  name,
-  type = "text",
-  register,
-  error,
-}) {
   return (
-    <div className="form-group">
-      <label htmlFor={name}>{label}</label>
+    <div>
+      <h2>Student Registration</h2>
 
       <input
-        id={name}
-        type={type}
-        {...register(name)}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? `${name}-error` : undefined}
+        type="text"
+        placeholder="Enter Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
 
-      {error && (
-        <p id={`${name}-error`} className="error" role="alert">
-          {error}
-        </p>
-      )}
+      <br />
+      <br />
+
+      <input
+        type="email"
+        placeholder="Enter Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <br />
+      <br />
+
+      <button onClick={sendData}>Submit</button>
     </div>
   );
 }
-
-// 3. Main Component
-function App() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(registrationSchema),
-
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
-      otherRole: "",
-    },
-  });
-
-  const selectedRole = watch("role");
-
-  const [success, setSuccess] = useState(false);
-
-  // 4. Submit Function
-  function onSubmit(data) {
-    console.log("Registration Data:", data);
-    setSuccess(true);
-  }
-
-  function onError() {
-    setSuccess(false);
-  }
-
-  return (
-    <div className="accessible-form">
-
-      <h1>Student Registration</h1>
-
-      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-
-        {/* Name */}
-        <TextField
-          label="Student Name"
-          name="name"
-          register={register}
-          error={errors.name?.message}
-        />
-
-        {/* Email */}
-        <TextField
-          label="Email Address"
-          name="email"
-          type="email"
-          register={register}
-          error={errors.email?.message}
-        />
-
-        {/* Password */}
-        <TextField
-          label="Password"
-          name="password"
-          type="password"
-          register={register}
-          error={errors.password?.message}
-        />
-
-        {/* Confirm Password */}
-        <TextField
-          label="Confirm Password"
-          name="confirmPassword"
-          type="password"
-          register={register}
-          error={errors.confirmPassword?.message}
-        />
-
-        {/* Role */}
-        <div className="form-group">
-          <label htmlFor="role">Select Role</label>
-
-          <select
-            id="role"
-            {...register("role")}
-            aria-invalid={Boolean(errors.role)}
-            aria-describedby={errors.role ? "role-error" : undefined}
-          >
-            <option value="">Select Role</option>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-            <option value="other">Other</option>
-          </select>
-
-          {errors.role && (
-            <p id="role-error" className="error" role="alert">
-              {errors.role.message}
-            </p>
-          )}
-        </div>
-
-        {/* Conditional Other Role */}
-        {selectedRole === "other" && (
-          <TextField
-            label="Specify Your Role"
-            name="otherRole"
-            register={register}
-            error={errors.otherRole?.message}
-          />
-        )}
-
-        <button type="submit">
-          Register
-        </button>
-
-        {success && (
-          <p className="success" role="status">
-            Registration Successful!
-          </p>
-        )}
-
-      </form>
-    </div>
-  );
-}
-
-export default App;
-
-
